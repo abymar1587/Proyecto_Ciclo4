@@ -20,6 +20,15 @@ app = FastAPI()
 async def root(): #function: root() [corresponde a la funcion que se encuentra debajo del decorador]
     return {"message": "Hello World"}
 
+#fixed path(path fijo, en la misma ruta de un pathh parameters "users"), se debe declarar antes de path parameters, de este modo el codigo no asumira que "me" corresponde a un path parameter
+@app.get("/users/me")
+async def read_user_me():
+    return {"user_id": "Aury Margarita Nuñez Campo"}
+
+@app.get("/users/{user_id}")#path parameter, se declara despues de un fixed path
+async def read_user(user_id: str):
+    return {"user_id": user_id}
+
 #Path parameters, parametros o variables que se pasan atraves de la ruta
 @app.get("/items/{item_id}")#path:"/items/{item_id(este es el parametro)}", operation:get
 async def read_item(item_id: int):#El parametro item_id pasa a la funcion como argumento, con ": int(tipo de dato)" la funcion limita el tipo de dato
